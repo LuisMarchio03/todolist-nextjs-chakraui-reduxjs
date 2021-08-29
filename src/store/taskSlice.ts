@@ -3,28 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const taskSlice = createSlice({
   name: 'task',
   initialState: {
-    task: [],
-    task_id: [],
+    task: ['teste'],
     isCompleted: false,
   },
   reducers: { 
     createTask(state, { payload }) {
-      const { id, content } = payload;
-
       return {
         ...state,
-        task: [...state.task, id],
-        task_id: {
-          ...state.task_id,
-          [id]: {
-            content,
-            completed: false
-          }
-        }
+        task: [...state.task, payload],
       } 
     },
     changeTask(state, { payload }) {
-      return { ...state, user: payload }
+      return { ...state, task: payload }
     }
   }
 });

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 import { createTask } from "../store/taskSlice";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 const Home: React.FC = () => {
-  const [allTasks, setAllTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState(['OLA']);
   const dispatch = useDispatch();
 
   const handleAddTask = (event: FormEvent) => {
@@ -21,7 +21,9 @@ const Home: React.FC = () => {
     dispatch(createTask(allTasks))
   }
 
-  console.log(allTasks)
+  useEffect(() => {
+    console.log(allTasks)
+  }, [])
 
   return (
     <Flex
