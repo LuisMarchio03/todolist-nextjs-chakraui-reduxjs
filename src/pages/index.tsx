@@ -1,7 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 
 import { createTask } from "../store/taskSlice";
-import { completedTask } from "../store/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { jsx, css } from "@emotion/react";
@@ -23,28 +22,29 @@ import style from "./home.module.css";
 interface Tasks {
   id: number;
   title: string;
-  isCompleted: boolean
 }
 
 const Home: React.FC = () => {
+  const tasks = useSelector((state: any) => state.task.task);
+
   const [allTasks, setAllTasks] = useState("");
-  const [allTasksId, setAllTasksId] = useState("");
+  const [taskCompleted, setTaskCompleted] = useState(false);
+
   const dispatch = useDispatch();
 
-  const tasks = useSelector((state: any) => state.task.task);
-  const taskCompleted = tasks.map((task: Tasks) => ( task.isCompleted ));
+  console.log(tasks)
 
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
 
-    const id = Math.random();
-
-    setAllTasksId(id as any);
-    dispatch(createTask({ id: allTasksId, title: allTasks, isCompleted: false }));
+    dispatch(createTask({ id: Math.random(), title: allTasks, isCompleted: taskCompleted }));
   };
 
-  const handleCompletedTask = () => {
-    dispatch(completedTask(true))
+  const handleCompletedTask = (id) => {
+    const taksId = tasks.map(task => task.id);
+    if (id == taksId) {
+      setTaskCompleted(taskCompleted === false ? true : false);
+    }
   };
 
   // {tasks.map((task) => ()}
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
                 ? tasks.map((task: Tasks) => (
                     <React.Fragment key={task.title}>
                       <Flex
-                        key={task.title}
+                        key={task.id}
                         as="div"
                         w="100%"
                         minH="40px"
@@ -159,7 +159,7 @@ const Home: React.FC = () => {
                           _focus={{ border: 0 }}
                           _hover={{ bg: "none", color: "hsl(220, 98%, 61%)" }}
                           leftIcon={<CheckCircleIcon />}
-                          onClick={handleCompletedTask}
+                          onClick={() => handleCompletedTask(task.id)}
                         ></Button>
                         <Box as="div" w="90%" h="auto" p="2%">
                           {task.title}
