@@ -23,6 +23,7 @@ import style from "./home.module.css";
 interface Tasks {
   id: number;
   title: string;
+  isCompleted: boolean
 }
 
 const Home: React.FC = () => {
@@ -30,9 +31,8 @@ const Home: React.FC = () => {
   const [allTasksId, setAllTasksId] = useState("");
   const dispatch = useDispatch();
 
-  const toEdit = useSelector((state: any) => state.task.toEdit);
-  const isCompleted = useSelector((state: any) => state.task.isCompleted);
   const tasks = useSelector((state: any) => state.task.task);
+  const taskCompleted = tasks.map((task: Tasks) => ( task.isCompleted ));
 
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
@@ -40,15 +40,12 @@ const Home: React.FC = () => {
     const id = Math.random();
 
     setAllTasksId(id as any);
-    dispatch(createTask({ id: allTasksId, title: allTasks }));
+    dispatch(createTask({ id: allTasksId, title: allTasks, isCompleted: false }));
   };
 
   const handleCompletedTask = () => {
     dispatch(completedTask(true))
   };
-
-  console.log(allTasksId);
-  console.log(allTasks);
 
   // {tasks.map((task) => ()}
   // value={allTasks}
@@ -143,7 +140,7 @@ const Home: React.FC = () => {
               minH="40px"
               color="#888aa1"
             >
-              {!isCompleted
+              {taskCompleted == false
                 ? tasks.map((task: Tasks) => (
                     <React.Fragment key={task.title}>
                       <Flex
