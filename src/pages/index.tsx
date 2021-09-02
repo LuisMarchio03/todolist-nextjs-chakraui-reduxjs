@@ -18,6 +18,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 interface Tasks {
   id: number;
   title: string;
+  completed: boolean
 }
 
 const Home: React.FC = () => {
@@ -36,7 +37,7 @@ const Home: React.FC = () => {
     );
   };
 
-  const handleCompleteClick = (id, completed) => {
+  const handleCompleteClick = (id: number, completed: boolean) => {
     dispatch(toggleComplete({ id: id, completed: !completed }));
   }
 
@@ -129,7 +130,7 @@ const Home: React.FC = () => {
               minH="40px"
               color="#888aa1"
             >
-              {stateTasks.map(task => (
+              {stateTasks.map((task: Tasks) => (
                 <React.Fragment key={task.id}>
                   <Flex
                     as="div"
