@@ -35,12 +35,22 @@ const Home: React.FC = () => {
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
 
-    dispatch(createTask({ id: Math.random(), title: allTasks, completed: false, }));
+    dispatch(
+      createTask({ id: Math.floor(Math.random() * 10), title: allTasks, completed: false })
+    );
   };
 
-  const handleCompletedTask = () => {
-   
-  }
+console.log(tasks)
+
+  const handleCompletedTask = (id) => {
+    const taskId = tasks.map(task => ( task.id ));
+    const index = taskId.indexOf(id);
+    if (index == -1) {
+      setTaskCompleted(false);
+    } else if (index == 0) {
+      setTaskCompleted(true);
+    }
+  };
 
   return (
     <Flex
@@ -150,7 +160,7 @@ const Home: React.FC = () => {
                           _focus={{ border: 0 }}
                           _hover={{ bg: "none", color: "hsl(220, 98%, 61%)" }}
                           leftIcon={<CheckCircleIcon />}
-                          onClick={() => handleCompletedTask()}
+                          onClick={() => handleCompletedTask(task.id)}
                         ></Button>
                         <Box as="div" w="90%" h="auto" p="2%">
                           {task.title}

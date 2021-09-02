@@ -16,7 +16,7 @@ export const taskSlice = createSlice({
       return { ...state, task: payload }
     },
     completedTask(state, { payload }) {
-      state.task[payload.index].completed = true;
+      const index = state.task.findIndex(payload);
     }
   }
 });
