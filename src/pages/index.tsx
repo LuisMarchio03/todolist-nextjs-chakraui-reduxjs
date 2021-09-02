@@ -38,6 +38,10 @@ const Home: React.FC = () => {
     dispatch(createTask({ id: Math.random(), title: allTasks, completed: false, }));
   };
 
+  const handleCompletedTask = () => {
+   
+  }
+
   return (
     <Flex
       flexWrap="wrap"
@@ -146,6 +150,7 @@ const Home: React.FC = () => {
                           _focus={{ border: 0 }}
                           _hover={{ bg: "none", color: "hsl(220, 98%, 61%)" }}
                           leftIcon={<CheckCircleIcon />}
+                          onClick={() => handleCompletedTask()}
                         ></Button>
                         <Box as="div" w="90%" h="auto" p="2%">
                           {task.title}
