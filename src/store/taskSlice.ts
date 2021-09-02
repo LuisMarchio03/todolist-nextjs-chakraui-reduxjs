@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const taskSlice = createSlice({
   name: 'task',
   initialState: {
-    task: [],
+    task: [{ id: 1, title: 'todo1', completed: true }],
   },
   reducers: { 
     createTask(state, { payload }) {
@@ -16,7 +16,7 @@ export const taskSlice = createSlice({
       return { ...state, task: payload }
     },
     completedTask(state, { payload }) {
-      const index = state.task.findIndex(payload);
+      const index = state.task.findIndex((task => task.id === payload.id));
     }
   }
 });
