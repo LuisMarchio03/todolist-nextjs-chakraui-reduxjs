@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 
-import { createTask } from "../store/taskSlice";
+import { completedTask, createTask } from "../store/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { jsx, css } from "@emotion/react";
@@ -32,24 +32,11 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  console.log(tasks)
-
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
 
-    dispatch(createTask({ id: Math.random(), title: allTasks, isCompleted: taskCompleted }));
+    dispatch(createTask({ id: Math.random(), title: allTasks, completed: false, }));
   };
-
-  const handleCompletedTask = (id) => {
-    const taksId = tasks.map(task => task.id);
-    if (id == taksId) {
-      setTaskCompleted(taskCompleted === false ? true : false);
-    }
-  };
-
-  // {tasks.map((task) => ()}
-  // value={allTasks}
-  // onChange={(event: any) => setAllTasks(event.target.value)}
 
   return (
     <Flex
@@ -159,7 +146,6 @@ const Home: React.FC = () => {
                           _focus={{ border: 0 }}
                           _hover={{ bg: "none", color: "hsl(220, 98%, 61%)" }}
                           leftIcon={<CheckCircleIcon />}
-                          onClick={() => handleCompletedTask(task.id)}
                         ></Button>
                         <Box as="div" w="90%" h="auto" p="2%">
                           {task.title}

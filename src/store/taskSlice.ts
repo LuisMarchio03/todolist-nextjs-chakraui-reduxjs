@@ -15,9 +15,12 @@ export const taskSlice = createSlice({
     changeTask(state, { payload }) {
       return { ...state, task: payload }
     },
+    completedTask(state, { payload }) {
+      state.task[payload.index].completed = true;
+    }
   }
 });
 
-export const { createTask, changeTask } = taskSlice.actions
+export const { createTask, changeTask, completedTask } = taskSlice.actions
 
 export default taskSlice.reducer;
