@@ -6,11 +6,11 @@ import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { useTheme } from "../hooks/useTheme";
 
 function MyApp({ Component, pageProps }) {
-  const { theme } = useTheme();
+  const { myTheme } = useTheme();
 
   return (
     <Provider store={store}>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider theme={myTheme}>
         <CSSReset />
         <Component {...pageProps} />
       </ChakraProvider>

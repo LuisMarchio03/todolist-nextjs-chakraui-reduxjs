@@ -4,11 +4,11 @@ import dark from "../styles/theme/dark";
 import light from "../styles/theme/light";
 
 export const useTheme = () =>  {
-  const [theme, setTheme] = useState(light);
+  const [myTheme, setMyTheme] = useState(dark);
 
   const toggleTheme = () => {
-    setTheme(theme === dark ? light : dark);
+    setMyTheme(myTheme === dark ? light : dark);
   }
 
-  return { theme, toggleTheme };
+  return { myTheme, toggleTheme };
 }
