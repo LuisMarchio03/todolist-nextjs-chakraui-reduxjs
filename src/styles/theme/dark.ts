@@ -24,11 +24,11 @@ const customTheme = {
     gray: {
       ...theme.colors.gray,
       400: '#888aa1',
+      600: '#4A5568',
       700: '#25273c',
       800: '#181824'
     },
   },
-  body: {},
 }
 
 export default customTheme;

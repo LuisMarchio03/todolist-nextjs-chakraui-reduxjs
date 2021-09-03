@@ -9,7 +9,7 @@ const customTheme = {
   },
   colors: {
     ...theme.colors,
-    white: '#fffef9',
+    white: '#a0a0ab',
     blue: {
       300: 'hsl(192, 100%, 67%)',
       400: 'hsl(220, 98%, 61%)',
@@ -23,9 +23,10 @@ const customTheme = {
     },
     gray: {
       ...theme.colors.gray,
-      400: '#888aa1',
-      700: '#25273c',
-      800: '#181824'
+      400: '#a0a0ab',
+      600: '#e7e7ea',
+      700: '#ffffff',
+      800: '#fafafa'
     },
   },
 }
