@@ -18,7 +18,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 interface Tasks {
   id: number;
   title: string;
-  completed: boolean
+  completed: boolean;
 }
 
 const Home: React.FC = () => {
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
 
   const handleCompleteClick = (id: number, completed: boolean) => {
     dispatch(toggleComplete({ id: id, completed: !completed }));
-  }
+  };
 
   return (
     <Flex
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
       as="div"
       w="100%"
       minHeight="100vh"
-      bg="#161620"
+      bg="gray.800"
     >
       <Flex
         as="header"
@@ -60,12 +60,13 @@ const Home: React.FC = () => {
         bgSize="cover"
         justifyContent="space-between"
       >
-        <Heading fontSize="3xl" p="5%" color="white">
+        <Heading fontSize="3xl" p={["1%", "3%"]} color="white">
           Todo List
         </Heading>
         <Button
           fontSize="2xl"
-          mt="1.6rem"
+          p={["1%", "3%"]}
+          mt="1rem"
           color="white"
           bg="transparent"
           _active={{ bg: "transparent" }}
@@ -93,7 +94,7 @@ const Home: React.FC = () => {
                 type="text"
                 border="0"
                 color="white"
-                bg="#25273c"
+                bg="gray.700"
                 value={newTasks}
                 onChange={(event: any) => setNewTasks(event.target.value)}
               />
@@ -101,10 +102,10 @@ const Home: React.FC = () => {
                 border="0"
                 h="40px"
                 ml="-0.3rem"
-                bg="hsl(192, 100%, 67%)"
+                bg="blue.300"
                 _active={{ bg: "transparent" }}
                 _focus={{ border: 0 }}
-                _hover={{ bg: "hsl(220, 98%, 61%)" }}
+                _hover={{ bg: "blue.400" }}
                 onClick={handleSubmit}
               >
                 Add
@@ -117,7 +118,7 @@ const Home: React.FC = () => {
             as="article"
             w="100%"
             minH="90vh"
-            bg="#25273c"
+            bg="gray.700"
             p="2%"
           >
             <Flex
@@ -128,38 +129,65 @@ const Home: React.FC = () => {
               justifyContent="space-between"
               w="100%"
               minH="40px"
-              color="#888aa1"
+              color="gray.400"
             >
               {stateTasks.map((task: Tasks) => (
                 <React.Fragment key={task.id}>
-                  <Flex
-                    as="div"
-                    w="100%"
-                    minH="40px"
-                    m="2% 0"
-                    align="center"
-                  >
-                    <Button
-                      textAlign="center"
-                      fontSize="1.5rem"
-                      bg="transparent"
-                      _active={{ bg: "transparent" }}
-                      _focus={{ border: 0 }}
-                      _hover={{ bg: "none", color: "hsl(220, 98%, 61%)" }}
-                      leftIcon={<CheckCircleIcon />}
-                      onClick={() => handleCompleteClick(task.id, task.completed)}
-                    ></Button>
-                    {task.completed === true ? (
-                      <Box as="div" w="90%" h="auto" p="2%">
-                        {task.title}
-                      </Box>
+                  <Flex as="div" w="100%" minH="40px" m="2% 0" align="center">
+                    {task.completed === false ? (
+                      <>
+                        <Button
+                          textAlign="center"
+                          fontSize="1.5rem"
+                          bg="transparent"
+                          _active={{ bg: "transparent" }}
+                          _focus={{ border: 0 }}
+                          _hover={{ bg: "none", color: "blue.400" }}
+                          leftIcon={<CheckCircleIcon />}
+                          onClick={() =>
+                            handleCompleteClick(task.id, task.completed)
+                          }
+                        ></Button>
+                        <Box
+                          fontSize={["sm", "lg"]}
+                          as="div"
+                          w="90%"
+                          h="auto"
+                          p="2%"
+                        >
+                          {task.title}
+                        </Box>
+                      </>
                     ) : (
-                      <Box textDecoration="line-through" as="div" w="90%" h="auto" p="2%">
-                        {task.title}
-                      </Box>
+                      <>
+                        <Button
+                          textAlign="center"
+                          fontSize="1.5rem"
+                          bg="transparent"
+                          color="purple.500"
+                          _active={{ bg: "transparent" }}
+                          _focus={{ border: 0 }}
+                          _hover={{ bg: "none", color: "blue.400" }}
+                          leftIcon={<CheckCircleIcon />}
+                          onClick={() =>
+                            handleCompleteClick(task.id, task.completed)
+                          }
+                        ></Button>
+                        <Box
+                          fontSize={["sm", "lg"]}
+                          textDecoration="line-through"
+                          as="div"
+                          w="90%"
+                          h="auto"
+                          p="2%"
+                          color="purple.500"
+                        >
+                          {task.title}
+                        </Box>
+                      </>
                     )}
                   </Flex>
-                  <Box as="div" w="100%" h="1px" bg="#888aa1"></Box>
+                  <Box as="div" w="100%" h="1px" bg="gray.400"></Box>
                 </React.Fragment>
               ))}
             </Flex>
