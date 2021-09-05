@@ -5,7 +5,7 @@ import dark from "../styles/theme/dark";
 import light from "../styles/theme/light";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, toggleComplete } from "../store/taskSlice";
+import { addTask, toggleComplete, toggleDelete } from "../store/taskSlice";
 
 import {
   Box,
@@ -19,11 +19,14 @@ import {
 import { SunIcon } from "@chakra-ui/icons";
 import { MoonIcon } from "@chakra-ui/icons";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import { AttachmentIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 interface Tasks {
   id: number;
   title: string;
   completed: boolean;
+  deleted: boolean;
 }
 
 const Home: React.FC = () => {
@@ -33,6 +36,8 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   const stateTasks = useSelector((state: any) => state.task);
+
+  console.log(stateTasks);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -63,7 +68,11 @@ const Home: React.FC = () => {
         w="100%"
         h="200px"
         bgRepeat="no-repeat"
-        bgImage={myTheme === dark ? `/images/bg-mobile-dark.jpg` : `/images/bg-mobile-light.jpg`}
+        bgImage={
+          myTheme === dark
+            ? `/images/bg-mobile-dark.jpg`
+            : `/images/bg-mobile-light.jpg`
+        }
         bgSize="cover"
         justifyContent="space-between"
       >
@@ -192,6 +201,18 @@ const Home: React.FC = () => {
                         >
                           {task.title}
                         </Box>
+                        <Button
+                          textAlign="center"
+                          fontSize="1.5rem"
+                          bg="transparent"
+                          _active={{ bg: "transparent" }}
+                          _focus={{ border: 0 }}
+                          _hover={{ bg: "none", color: "blue.400" }}
+                          leftIcon={<DeleteIcon />}
+                          onClick={() => {
+                            dispatch(toggleDelete(task.id));
+                          }}
+                        ></Button>
                       </>
                     )}
                   </Flex>
